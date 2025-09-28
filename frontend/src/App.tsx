@@ -1,12 +1,16 @@
+import Footer from './components/Footer';
+import CartScreen from './pages/CartScreen';
 import HomeScreen from './pages/HomeScreen';
-import ProductsScreen from './pages/ProductsScreen';
+import ProductScreen from './pages/ProductScreen';
 
 function App() {
   return (
-    <>
+    <div className="scroll-smooth">
       <HomeScreen />
-      <ProductsScreen />
-    </>
+      <CartScreen />
+      <ProductScreen />
+      <Footer />
+    </div>
   );
 }
 

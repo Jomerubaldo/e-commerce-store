@@ -1,62 +1,67 @@
-import heroImg from '../assets/wallpaper.jpg';
+import { useState } from 'react';
+import wallpaper1 from '../assets/wallpaper.jpg';
+import wallpaper2 from '../assets/Screenshot 2025-09-28 135613.png';
+import wallpaper3 from '../assets/Screenshot 2025-09-28 135742.png';
 
 const ProductCard = () => {
+  const images = [wallpaper1, wallpaper2, wallpaper3]; // replace with your images
+  const [current, setCurrent] = useState(0);
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? images.length - 1 : current - 1);
+  };
+
+  const nextSlide = () => {
+    setCurrent(current === images.length - 1 ? 0 : current + 1);
+  };
+
   return (
-    <div className="pt-15">
-      <div className=" grid grid-cols-3 space-y-10 place-items-center">
-        {/* Card 1 */}
-        <div className="bg-[#16161a] w-[450px] h-52">
-          <div className="flex p-5">
-            <img src={heroImg} className="w-[150px] h-[100px]" />
-            <h1>Product</h1>
+    <div className="relative w-full max-w-5xl mx-auto">
+      {/* Slides */}
+      <div className="overflow-hidden">
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className={`transition-transform duration-500 ease-in-out ${
+              idx === current ? 'translate-x-0' : 'hidden'
+            }`}
+          >
+            <img
+              src={img}
+              alt={`slide ${idx}`}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <p>wewqeqweqweqwewqe</p>
-        </div>
+        ))}
+      </div>
 
-        {/* Card 2 */}
-        <div className="bg-[#16161a] w-[450px] h-52">
-          <div className="flex p-5">
-            <img src={heroImg} className="w-[150px] h-[100px]" />
-            <h1>Product</h1>
-          </div>
-          <p>wewqeqweqweqwewqe</p>
-        </div>
+      {/* Prev Button */}
+      <button
+        onClick={prevSlide}
+        className="absolute top-1/2 left-3 -translate-y-1/2 bg-gray-800/50 hover:bg-gray-800 text-white p-2 px-5 py-5"
+      >
+        ‹
+      </button>
 
-        {/* Card 3 */}
-        <div className="bg-[#16161a] w-[450px] h-52">
-          <div className="flex p-5">
-            <img src={heroImg} className="w-[150px] h-[100px]" />
-            <h1>Product</h1>
-          </div>
-          <p>wewqeqweqweqwewqe</p>
-        </div>
+      {/* Next Button */}
+      <button
+        onClick={nextSlide}
+        className="absolute top-1/2 right-3 -translate-y-1/2 bg-gray-800/50 hover:bg-gray-800 text-white p-2 px-5 py-5"
+      >
+        ›
+      </button>
 
-        {/* Card 4 */}
-        <div className="bg-[#16161a] w-[450px] h-52">
-          <div className="flex p-5">
-            <img src={heroImg} className="w-[150px] h-[100px]" />
-            <h1>Product</h1>
-          </div>
-          <p>wewqeqweqweqwewqe</p>
-        </div>
-
-        {/* Card 5 */}
-        <div className="bg-[#16161a] w-[450px] h-52">
-          <div className="flex p-5">
-            <img src={heroImg} className="w-[150px] h-[100px]" />
-            <h1>Product</h1>
-          </div>
-          <p>wewqeqweqweqwewqe</p>
-        </div>
-
-        {/* Card 6 */}
-        <div className="bg-[#16161a] w-[450px] h-52">
-          <div className="flex p-5">
-            <img src={heroImg} className="w-[150px] h-[100px]" />
-            <h1>Product</h1>
-          </div>
-          <p>wewqeqweqweqwewqe</p>
-        </div>
+      {/* Indicators */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrent(idx)}
+            className={`w-3 h-3 rounded-full ${
+              current === idx ? 'bg-white' : 'bg-gray-400'
+            }`}
+          ></button>
+        ))}
       </div>
     </div>
   );
